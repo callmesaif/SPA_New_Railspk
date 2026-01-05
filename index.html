@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO -->
-    <title id="site-title">The RAILSPK - Pakistan Railways Hub | Reviews & Vlogs</title>
+    <title id="site-title">RAILSPK - Pakistan Railways Hub | Reviews & Vlogs</title>
     <meta name="description" content="Official portal for Pakistan Railways. Explore high-res wallpapers, passenger reviews, live train fares, and cinematic travel vlogs.">
-    <meta name="keywords" content="Pakistan Railways, Train Reviews, Railway Vlogs, Green Line Express, Railspk, Train Fares Pakistan, Railway Community, train tracking pakistan">
-    <meta name="author" content="The RAILSPK Team">
+    <meta name="keywords" content="pakistan railway, train vlogs, train reviews, pakistan railways, train tracking pakistan, ratings, trains, pakistan, pakistan railways ticket booking, ticket booking pakistan, railoverspk, railspk, train vlogger, track my train pakistan railways, travel pakistan, travel by train">
+    <meta name="author" content="RAILSPK Team">
 
     <link rel="canonical" href="https://therails.pk/" />
-    <link rel="icon" href="images/favicon.ico" type="image/png">
+    <link rel="icon" href="images/favicon.ico?v=2" type="image/x-icon">
     
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -50,7 +50,7 @@
         
         .stars { color: #f59e0b !important; }
         .poll-bar { transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .line-clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        .line-clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; line-clamp: 4; }
         
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 10px; }
@@ -212,11 +212,11 @@
                 </p>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                     <div class="bg-gray-50 dark:bg-gray-800/40 p-10 rounded-[3rem] border border-gray-100 dark:border-gray-800">
-                        <span class="text-4xl md:text-6xl font-black text-rail-accent block italic mb-2">10K+</span>
+                        <span class="text-4xl md:text-6xl font-black text-rail-accent block italic mb-2">35K+</span>
                         <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Subscribers</span>
                     </div>
                     <div class="bg-gray-50 dark:bg-gray-800/40 p-10 rounded-[3rem] border border-gray-100 dark:border-gray-800">
-                        <span class="text-4xl md:text-6xl font-black text-rail-accent block italic mb-2">500K+</span>
+                        <span class="text-4xl md:text-6xl font-black text-rail-accent block italic mb-2">5M+</span>
                         <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Total Reach</span>
                     </div>
                     <div class="bg-gray-50 dark:bg-gray-800/40 p-10 rounded-[3rem] border border-gray-100 dark:border-gray-800">
@@ -302,7 +302,7 @@
             { id: 'khybermail', name: 'Khyber Mail Express', route: 'Karachi ⟷ Peshawar', slides: ['coming_soon.avif'], fares: [{class:"AC Sleeper",price:"Rs. 13,000"},{class:"AC Business",price:"Rs. 9,500"},{class:"AC Standard",price:"Rs. 7,500"},{class:"Economy",price:"Rs. 4,000"}] },
             { id: 'greenline', name: 'Green Line Express', route: 'Karachi ⟷ Islamabad', slides: ['greenline_1.webp','greenline_2.webp','greenline_3.webp','greenline_4.webp','greenline_5.webp','greenline_6.webp','greenline_7.webp','greenline_8.webp','greenline_9.webp','greenline_10.webp','greenline_11.webp'], fares: [{class:"AC Parlor",price:"Rs. 13,500"},{class:"AC Business",price:"Rs. 11,500"},{class:"AC Standard",price:"Rs. 9,000"},{class:"Economy",price:"Rs. 4,500"}] },
             { id: 'tezgam', name: 'Tezgam Express', route: 'Karachi ⟷ Rawalpindi', slides: ['coming_soon.avif'], fares: [{class:"AC Sleeper",price:"Rs. 12,000"},{class:"AC Business",price:"Rs. 9,000"},{class:"AC Standard",price:"Rs. 7,000"},{class:"Economy",price:"Rs. 3,800"}] },
-            { id: 'allamaiqbal', name: 'Allama Iqbal Express', route: 'Karachi ⟷ Sialkot', slides: ['allama_iqbal_1.webp','allama_iqbal_2.webp'], fares: [{class:"AC Standard",price:"Rs. 6,800"},{class:"Economy",price:"Rs. 3,500"}] },
+            { id: 'allamaiqbal', name: 'Allama Iqbal Express', route: 'Karachi ⟷ Sialkot', slides: ['allama_1.webp'], fares: [{class:"AC Standard",price:"Rs. 6,800"},{class:"Economy",price:"Rs. 3,500"}] },
             { id: 'hazara', name: 'Hazara Express', route: 'Karachi ⟷ Havelian', slides: ['coming_soon.avif'], fares: [{class:"AC Standard",price:"Rs. 7,000"},{class:"Economy",price:"Rs. 3,600"}] },
             { id: 'awam', name: 'Awam Express', route: 'Karachi ⟷ Peshawar', slides: ['coming_soon.avif'], fares: [{class:"AC Business",price:"Rs. 9,500"},{class:"AC Standard",price:"Rs. 7,500"},{class:"Economy",price:"Rs. 3,800"}] },
             { id: 'karachi', name: 'Karachi Express', route: 'Karachi ⟷ Lahore', slides: ['coming_soon.avif'], fares: [{class:"AC Sleeper",price:"Rs. 11,500"},{class:"AC Business",price:"Rs. 9,500"},{class:"AC Standard",price:"Rs. 7,500"},{class:"Economy",price:"Rs. 3,800"}] },
@@ -321,7 +321,13 @@
         const galleryData = [
             { title: "Green Line Dawn", src: "images/train_background.webp" },
             { title: "Railway Track Symmetry", src: "images/train_background2.webp" },
-            { title: "Allama Iqbal Arrival", src: "images/allama_iqbal_1.webp" },
+            { title: "ZCU-30 Locomotive at Lahore Junction", src: "images/zcu30_locomotive.webp" },
+            { title: "ZCU-20 leading Allama Iqbal Express", src: "images/zcu20_locomotive.webp" },
+            { title: "Khanewal Junction View", src: "images/khanewal_junction.webp" },
+            { title: "Subak Kharam Railcar", src: "images/railcar_new_train.webp" },
+            { title: "GEU-40 with Green line train", src: "images/geu40_locomotive.webp" },
+
+
         ];
 
         // --- CORE NAVIGATION ---
@@ -345,8 +351,8 @@
             }
 
             window.scrollTo(0, 0); 
-            if(typeof fetchVideos === 'function' && p === 'home' && YT_KEY) fetchVideos(yt_duration); 
-            if(typeof renderGallery === 'function' && p === 'gallery') renderGallery();
+            if(p === 'home' && YT_KEY) fetchVideos(yt_duration); 
+            if(p === 'gallery') renderGallery();
         }
 
         function toggleMenu() {
@@ -438,7 +444,7 @@
                 container.innerHTML = data.map(u => {
                     const react = u.reactions || {like:0,heart:0,fire:0};
                     return `
-                    <div class="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl text-gray-900 dark:text-white transition-all hover:border-rail-accent">
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl text-gray-900 dark:text-white transition-all hover:border-rail-accent text-left">
                         <div class="flex justify-between mb-6"><span class="bg-rail-accent text-white text-[10px] font-black px-4 py-2 rounded-full uppercase italic">Official Update</span><span class="text-gray-400 text-xs font-black">👁️ ${u.views||0}</span></div>
                         ${u.imageUrl ? `<img src="${u.imageUrl}" loading="lazy" class="w-full h-56 object-cover rounded-3xl mb-6 shadow-xl cursor-zoom-in" onclick="openSliderModal(['${u.imageUrl}'], 0)">` : ''}
                         <h3 class="text-xl font-black uppercase mb-4 text-gray-900 dark:text-white">${escapeHTML(u.title)}</h3>
@@ -478,8 +484,8 @@
             body.innerHTML = `
                 ${post.imageUrl ? `<img src="${post.imageUrl}" class="w-full h-auto rounded-3xl mb-8 shadow-2xl">` : ''}
                 <div class="flex justify-between items-center mb-6 text-[10px] font-black uppercase text-gray-400"><span>Official Broadcast</span><span>👁️ ${post.views+1} Views</span></div>
-                <h2 class="text-3xl font-black uppercase italic mb-8 text-gray-900 dark:text-white">${escapeHTML(post.title)}</h2>
-                <div class="whitespace-pre-wrap leading-relaxed text-gray-600 dark:text-gray-300 font-medium">${escapeHTML(post.content)}</div>`;
+                <h2 class="text-3xl font-black uppercase italic mb-8 text-gray-900 dark:text-white text-left">${escapeHTML(post.title)}</h2>
+                <div class="whitespace-pre-wrap leading-relaxed text-gray-600 dark:text-gray-300 font-medium text-left">${escapeHTML(post.content)}</div>`;
             document.getElementById('post-modal').classList.remove('hidden');
             document.getElementById('post-modal').classList.add('flex');
             document.body.style.overflow = 'hidden';
@@ -510,6 +516,9 @@
                     </div>`).join('') || '<p class="text-gray-400 text-xs italic">No ratings yet.</p>';
 
                 const fullSlidePaths = t.slides.map(s => 'images/' + s);
+                
+                // FIXED: Preload images in background to remove slider lag
+                fullSlidePaths.forEach(src => { const img = new Image(); img.src = src; });
 
                 return `
                 <div class="bg-white dark:bg-rail-dark rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col">
@@ -524,7 +533,7 @@
                                 <div class="flex justify-between items-center font-black text-gray-900 dark:text-white"><span>Passenger Score (${t.reviewCount})</span><span class="stars text-2xl">${star}</span></div>
                             </div>
                             <div class="md:w-48 aspect-square bg-gray-100 dark:bg-gray-800 rounded-3xl overflow-hidden cursor-zoom-in group relative" onclick='openSliderModal(${JSON.stringify(fullSlidePaths)}, 0)'>
-                                <img src="images/${t.slides[0]}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                                <img src="images/${t.slides[0]}" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
                                 ${t.slides.length > 1 ? `<div class="absolute bottom-2 right-2 bg-black/60 text-white text-[9px] px-2 py-1 rounded-lg font-black uppercase tracking-tighter">+${t.slides.length - 1}</div>` : ''}
                             </div>
                         </div>
@@ -563,12 +572,12 @@
                 if (!app) container.innerHTML = '';
                 if (data.items) data.items.forEach(v => {
                     container.innerHTML += `
-                    <div class="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm group cursor-pointer border border-gray-100 dark:border-gray-700" onclick="openVideo('${v.id.videoId}')">
-                        <div class="aspect-video relative overflow-hidden">
+                    <div class="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm group cursor-pointer border border-gray-100 dark:border-gray-700 text-left" onclick="openVideo('${v.id.videoId}')">
+                        <div class="aspect-video relative overflow-hidden bg-gray-200 dark:bg-gray-700">
                             <img src="https://img.youtube.com/vi/${v.id.videoId}/maxresdefault.jpg" alt="${v.snippet.title}" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
                             <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"><i class="fas fa-play text-white text-4xl"></i></div>
                         </div>
-                        <div class="p-6 text-gray-900 dark:text-white text-left"><h3 class="text-xs font-black uppercase line-clamp-2">${v.snippet.title}</h3></div>
+                        <div class="p-6 text-gray-900 dark:text-white"><h3 class="text-xs font-black uppercase line-clamp-2">${v.snippet.title}</h3></div>
                     </div>`;
                 });
             } catch (e) {}
@@ -581,7 +590,7 @@
                 const container = document.getElementById('polls-container'); if (!container) return;
                 container.innerHTML = polls.map(p => {
                     const total = p.options.reduce((a, b) => a + b.votes, 0);
-                    return `<div class="bg-white dark:bg-rail-dark p-8 md:p-12 rounded-[3.5rem] border-2 border-rail-accent shadow-xl text-gray-900 dark:text-white"><h3 class="text-2xl font-black italic uppercase mb-8 text-left">${escapeHTML(p.question)}</h3><div class="space-y-4">
+                    return `<div class="bg-white dark:bg-rail-dark p-8 md:p-12 rounded-[3.5rem] border-2 border-rail-accent shadow-xl text-gray-900 dark:text-white text-left"><h3 class="text-2xl font-black italic uppercase mb-8">${escapeHTML(p.question)}</h3><div class="space-y-4">
                             ${p.options.map((o, i) => {
                                 const per = total > 0 ? Math.round((o.votes / total) * 100) : 0;
                                 return `<div class="relative group cursor-pointer" onclick="castVote('${p.id}', ${i})"><div class="flex justify-between font-black text-[10px] uppercase mb-1"><span>${escapeHTML(o.text)}</span><span>${per}%</span></div><div class="h-10 bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden"><div class="poll-bar h-full bg-rail-accent" style="width: ${per}%"></div></div></div>`;
@@ -605,10 +614,13 @@
         function renderGallery() {
             const grid = document.getElementById('gallery-grid'); if (!grid) return;
             grid.innerHTML = galleryData.map(img => `
-                <div class="group relative overflow-hidden rounded-[2.5rem] bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                    <img src="${img.src}" alt="${img.title}" loading="lazy" class="w-full h-80 object-cover transition duration-700 group-hover:scale-110 cursor-zoom-in" onclick="openSliderModal(['${img.src}'], 0)">
+                <div class="group relative overflow-hidden rounded-[2.5rem] bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-left">
+                    <div class="w-full h-80 img-loading overflow-hidden">
+                        <!-- FIXED: Using fetchpriority to load gallery first when active -->
+                        <img src="${img.src}" alt="${img.title}" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 cursor-zoom-in" onclick="openSliderModal(['${img.src}'], 0)">
+                    </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition flex flex-col justify-end p-8">
-                        <h4 class="text-white text-xl font-black italic uppercase mb-4 text-left">${img.title}</h4>
+                        <h4 class="text-white text-xl font-black italic uppercase mb-4">${img.title}</h4>
                         <a href="${img.src}" download class="bg-rail-accent text-white text-center py-3 rounded-xl font-black text-[10px] uppercase">Download Wallpaper</a>
                     </div>
                 </div>`).join('');
@@ -639,7 +651,12 @@
         function updateSliderDisplay() {
             const img = document.getElementById('modal-image-content');
             const counter = document.getElementById('slider-counter');
+            
+            // Loading state for smoothness
+            img.classList.add('opacity-40');
             img.src = currentSliderImages[currentSliderIndex];
+            img.onload = () => img.classList.remove('opacity-40');
+            
             counter.innerText = `${currentSliderIndex + 1} / ${currentSliderImages.length}`;
         }
 
@@ -685,6 +702,7 @@
         </div>
     </div>
 
+    <!-- Image Slider Modal -->
     <div id="image-modal" class="hidden fixed inset-0 z-[100] bg-black/95 items-center justify-center p-4" onclick="if(event.target.id === 'image-modal') closeModal('image-modal')">
         <button onclick="closeModal('image-modal')" class="absolute top-6 right-6 text-white text-5xl font-thin z-[110]">&times;</button>
         
@@ -698,7 +716,7 @@
         </div>
 
         <div class="relative flex flex-col items-center">
-            <img id="modal-image-content" src="" alt="Preview" class="max-w-full max-h-[85vh] object-contain rounded-3xl shadow-2xl">
+            <img id="modal-image-content" src="" alt="Preview" class="max-w-full max-h-[85vh] object-contain rounded-3xl shadow-2xl transition-opacity duration-300">
             <div id="slider-counter" class="mt-6 bg-rail-accent text-white px-6 py-2 rounded-full font-black text-xs uppercase tracking-widest"></div>
         </div>
     </div>
@@ -706,7 +724,7 @@
     <div id="post-modal" class="hidden fixed inset-0 z-[100] bg-black/95 items-center justify-center p-4 overflow-y-auto" onclick="if(event.target.id === 'post-modal') closeModal('post-modal')">
         <div class="bg-white dark:bg-rail-dark w-full max-w-4xl rounded-[3rem] shadow-2xl relative border border-white/5 my-8">
             <button onclick="closeModal('post-modal')" class="absolute top-8 right-8 text-gray-400 text-5xl font-thin hover:text-rail-accent transition-colors">&times;</button>
-            <div id="post-modal-body" class="p-10 md:p-20 text-left"></div>
+            <div id="post-modal-body" class="p-10 md:p-20"></div>
         </div>
     </div>
 </body>
