@@ -12,6 +12,53 @@
 
     <link rel="canonical" href="https://therails.pk/" />
     <link rel="icon" href="images/favicon.ico?v=3" type="image/x-icon">
+
+
+    <!-- Monetag Ads Script -->
+    <script src="https://quge5.com/88/tag.min.js" data-zone="199516" async data-cfasync="false"></script>
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QL2CKH2MBL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QL2CKH2MBL');
+</script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "The RAILSPK",
+      "url": "https://therails.pk/",
+      "logo": "https://therails.pk/images/favicon.ico",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://therails.pk/community"
+      },
+      "sameAs": [
+        "https://facebook.com/therailspkproductions",
+        "https://youtube.com/@therailspk",
+        "https://instagram.com/realinventivecadet",
+        "https://whatsapp.com/channel/0029VbBHeff8PgsJZYRHww3O"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://therails.pk/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://therails.pk/reviews?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
     
     <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -111,6 +158,7 @@
                         <option value="short">Short Clips</option>
                     </select>
                 </div>
+
                 <!-- YouTube Videos yahan display honge -->
                 <div id="video-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                      <p class="col-span-full text-center py-20 text-gray-400 font-black uppercase tracking-[0.3em] animate-pulse italic">Fetching YouTube Content...</p>
@@ -147,35 +195,41 @@
 
         <!-- --- COMMUNITY VIEW --- -->
         <section id="community-view" class="page-view">
-            <div class="max-w-screen-xl mx-auto px-4 py-20">
-                <h2 class="text-4xl md:text-7xl font-black uppercase italic mb-16 text-gray-900 dark:text-white">Railway <span class="text-rail-accent">Cloud</span></h2>
+            <div class="max-w-screen-xl mx-auto px-6 py-24">
+                <h2 class="text-5xl md:text-8xl font-black uppercase italic mb-20 text-center tracking-tighter">Railway <span class="text-rail-accent">Cloud</span></h2>
                 
-                <div id="polls-container" class="mb-16 space-y-8"></div>
+        <!-- Live Interactions -->
+            <div id="polls-container" class="mb-24 space-y-12"></div>
                 
-                <div id="admin-panel" class="hidden mb-16 bg-rail-accent/5 border-2 border-dashed border-rail-accent p-8 rounded-[2.5rem]">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-2xl font-black text-rail-accent uppercase italic mb-8">Post Broadcast</h3>
-                            <form id="update-form" class="space-y-4">
-                                <input type="text" id="update-title" placeholder="Broadcast Headline" required class="w-full bg-white dark:bg-gray-800 p-4 rounded-2xl outline-none text-gray-900 dark:text-white border border-gray-100 dark:border-gray-700">
-                                <input type="file" id="update-image-file" multiple accept="image/*" class="w-full bg-white dark:bg-gray-800 p-4 rounded-2xl text-xs">
-                                <textarea id="update-content" placeholder="Broadcast message with #hashtags..." required class="w-full bg-white dark:bg-gray-800 p-4 rounded-2xl h-32"></textarea>
-                                <button type="submit" id="update-btn" class="bg-rail-accent text-white px-10 py-4 rounded-2xl font-black uppercase text-xs tracking-widest">Publish to Cloud</button>
+        <!-- Admin Interaction Logic (Visible only when authorized) -->
+                <div id="admin-panel" class="hidden mb-24 bg-rail-accent/5 border-2 border-dashed border-rail-accent/30 p-12 rounded-[3.5rem] shadow-inner">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        <div class="space-y-8">
+                            <h3 class="text-3xl font-black text-rail-accent uppercase italic">Post Broadcast</h3>
+                            <form id="update-form" class="space-y-5">
+                                <input type="text" id="update-title" placeholder="Headline" required class="w-full bg-white dark:bg-gray-800 p-5 rounded-3xl outline-none border border-gray-100 dark:border-gray-700 focus:ring-2 ring-rail-accent transition">
+                                <div class="bg-white dark:bg-gray-800 p-5 rounded-3xl border border-gray-100 dark:border-gray-700">
+                                    <label class="block text-[10px] font-black uppercase text-gray-400 mb-2">Attached Media</label>
+                                    <input type="file" id="update-image-file" multiple accept="image/*" class="w-full text-xs cursor-pointer">
+                                </div>
+                                <textarea id="update-content" placeholder="Content... Use #hashtags" required class="w-full bg-white dark:bg-gray-800 p-5 rounded-3xl h-48 outline-none border border-gray-100 dark:border-gray-700 focus:ring-2 ring-rail-accent transition"></textarea>
+                                <button type="submit" id="update-btn" class="w-full bg-rail-accent text-white py-5 rounded-3xl font-black uppercase tracking-[0.2em] shadow-lg hover:bg-indigo-700 transition">Publish to Cloud</button>
                             </form>
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-black text-rail-accent uppercase italic mb-8">New Interaction</h3>
-                            <form id="poll-form" class="space-y-4">
-                                <input type="text" id="poll-question" placeholder="Question..." required class="w-full bg-white dark:bg-gray-800 p-4 rounded-2xl outline-none text-gray-900 dark:text-white border border-gray-100 dark:border-gray-700">
-                                <input type="text" id="poll-options" placeholder="Option 1, Option 2 (comma separated)" required class="w-full bg-white dark:bg-gray-800 p-4 rounded-2xl outline-none text-gray-900 dark:text-white border border-gray-100 dark:border-gray-700">
-                                <button type="submit" class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-4 rounded-2xl font-black uppercase">Create Poll</button>
+                        <div class="space-y-8">
+                            <h3 class="text-3xl font-black text-rail-accent uppercase italic">New Interaction</h3>
+                            <form id="poll-form" class="space-y-5">
+                                <input type="text" id="poll-question" placeholder="Poll Question?" required class="w-full bg-white dark:bg-gray-800 p-5 rounded-3xl border border-gray-100 dark:border-gray-700 outline-none focus:ring-2 ring-rail-accent">
+                                <input type="text" id="poll-options" placeholder="Option 1, Option 2 (Comma Separated)" required class="w-full bg-white dark:bg-gray-800 p-5 rounded-3xl border border-gray-100 dark:border-gray-700 outline-none focus:ring-2 ring-rail-accent">
+                                <button type="submit" class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 py-5 rounded-3xl font-black uppercase tracking-[0.2em] transition hover:opacity-90">Deploy Live Poll</button>
                             </form>
                         </div>
                     </div>
                 </div>
 
-                <div id="updates-container" class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <p id="updates-status" class="col-span-full text-center py-20 text-gray-400 font-black uppercase tracking-[0.3em] animate-pulse italic">Connecting to RAILSPK Cloud...</p>
+        <!-- Main Updates Feed (Read More + Comments inside) -->
+                <div id="updates-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <p id="updates-status" class="col-span-full text-center py-20 text-gray-400 font-black uppercase tracking-[0.4em] animate-pulse italic">Syncing with Cloud Server...</p>
                 </div>
             </div>
         </section>
@@ -276,6 +330,15 @@
         </div>
     </div>
 
+    <!-- Explore Mode Modal (Premium Review Popup) -->
+    <div id="explore-modal" class="hidden fixed inset-0 z-[150] bg-rail-dark/95 flex items-center justify-center p-4 backdrop-blur-3xl overflow-y-auto">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-4xl rounded-[3.5rem] shadow-2xl overflow-hidden relative border border-white/10 my-auto">
+            <button onclick="closeModal('explore-modal')" class="absolute top-6 right-8 text-gray-400 hover:text-rail-accent text-4xl font-light transition">&times;</button>
+            <div id="explore-modal-content" class="p-8 md:p-14">
+            </div>
+        </div>
+    </div>
+
     <div id="video-modal" class="hidden fixed inset-0 z-[100] bg-black/95 items-center justify-center p-4">
         <div class="bg-black w-full max-w-5xl aspect-video rounded-3xl overflow-hidden relative">
             <button onclick="closeModal('video-modal')" class="absolute top-4 right-4 text-white text-3xl z-10">&times;</button>
@@ -283,6 +346,8 @@
         </div>
     </div>
 
+    <!-- Data dynamically injected by JS -->
     <script src="logic.js"></script>
+    
 </body>
 </html>

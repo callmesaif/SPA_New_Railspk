@@ -1,6 +1,6 @@
 /**
  * RAILSPK OFFICIAL LOGIC SYSTEM
- * Version: 3.6.0 (Integrated with New Frontend + Hashtags + Polls)
+ * Version: 3.7.0 (Integrated with New Frontend + Hashtags + Polls)
  * Project: therails.pk
  */
 
@@ -19,22 +19,57 @@ let db, auth, user, adminAuthorised = false;
 let YT_KEY = null, YT_CHANNEL = null; // Path: /artifacts/youtube
 let yt_token = null, yt_duration = 'long', allReviews = [];
 
+let expandedPosts = {}; 
 let currentSliderImages = [];
 let currentSliderIndex = 0;
 let sliderTimer = null;
 
-// --- 2. TRAIN DATA REPOSITORY (Full 17 Trains) ---
+// --- 2. TRAIN DATA REPOSITORY ---
 const trainsData = [
-    { id: 'greenline', name: 'Green Line Express', route: 'Karachi ⟷ Islamabad', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Bahawalpur', 'Khanewal', 'Lahore', 'Rawalpindi', 'Islamabad'], slides: ['greenline_7.webp','greenline_2.webp','greenline_3.webp','greenline_4.webp','greenline_5.webp','greenline_6.webp','greenline_1.webp','greenline_8.webp','greenline_9.webp'], fares: [{class:"AC Parlor",price:"Rs. 13,500"},{class:"Economy",price:"Rs. 4,500"}] },
-    { id: 'tezgam', name: 'Tezgam Express', route: 'Karachi ⟷ Rawalpindi', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Bahawalpur', 'Multan', 'Lahore', 'Rawalpindi'], slides: ['coming_soon.avif'], fares: [{class:"AC Sleeper",price:"Rs. 12,000"},{class:"Economy",price:"Rs. 3,800"}] },
-    { id: 'allamaiqbal', name: 'Allama Iqbal Express', route: 'Karachi ⟷ Sialkot', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Khanewal', 'Sahiwal', 'Lahore', 'Sialkot'], slides: ['allama_1.webp'], fares: [{class:"AC Standard",price:"Rs. 6,800"},{class:"Economy",price:"Rs. 3,500"}] },
-    { id: 'karachi', name: 'Karachi Express', route: 'Karachi ⟷ Lahore', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Bahawalpur', 'Multan', 'Sahiwal', 'Lahore'], slides: ['ac_sleeper_karachi_express.webp','ac_sleeper_karachi_express2.webp'], fares: [{class:"AC Sleeper",price:"Rs. 11,500"},{class:"Economy",price:"Rs. 3,800"}] },
-    { id: 'millat', name: 'Millat Express', route: 'Karachi ⟷ Faisalabad', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Bahawalpur', 'Khanewal', 'Faisalabad'], slides: ['coming_soon.avif'], fares: [{class:"AC Business",price:"Rs. 9,000"},{class:"Economy",price:"Rs. 3,500"}] },
-    { id: 'shalimar', name: 'Shalimar Express', route: 'Karachi ⟷ Lahore', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Multan', 'Sahiwal', 'Lahore'], slides: ['shalimar_1.webp','shalimar_2.webp','shalimar_3.webp','shalimar_4.webp','shalimar_5.webp','shalimar_6.webp','shalimar_7.webp','shalimar_8.webp'], fares: [{class:"AC Parlor",price:"Rs. 11,000"},{class:"Economy",price:"Rs. 3,500"}] },
-    { id: 'pakbusiness', name: 'Pak Business Express', route: 'Karachi ⟷ Lahore', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Khanewal', 'Sahiwal', 'Lahore'], slides: ['business_1.webp','business_2.webp','business_3.webp','business_4.webp','business_5.webp','business_6.webp','business_7.webp'], fares: [{class:"AC Standard",price:"Rs. 7,500"},{class:"Economy",price:"Rs. 3,800"}] },
-    { id: 'karakoram', name: 'Karakoram Express', route: 'Karachi ⟷ Lahore', cities: ['Karachi', 'Hyderabad', 'Rohri', 'Khanewal', 'Faisalabad', 'Lahore'], slides: ['karakoram_express_train_rake.webp','millat_express_vs_karakoram_express.webp'], fares: [{class:"AC Business",price:"Rs. 9,500"},{class:"AC Standard",price:"Rs. 7,500"},{class:"Economy",price:"Rs. 4,000"}] },
-    { id: 'mehran', name: 'Mehran Express', route: 'Karachi ⟷ Mirpur Khas', cities: ['Karachi', 'Hyderabad', 'Mirpur Khas'], slides: ['mehran_4.webp','mehran_2.webp','mehran_3.webp','mehran_1.webp'], fares: [{class:"Economy",price:"Rs. 800"}] },
-    { id: 'shahlatif', name: 'Shah Latif Express', route: 'Karachi ⟷ Mirpur Khas', cities: ['Karachi', 'Hyderabad', 'Mirpur Khas'], slides: ['coming_soon.avif'], fares: [{class:"Economy",price:"Rs. 800"}] },
+    { 
+        id: 'greenline', 
+        name: 'Green Line Express', 
+        route: 'Karachi ⟷ Islamabad Margalla', 
+        cities: ['Karachi', 'Hyderabad', 'Rohri', 'Bahawalpur','Khanewal','Lahore', 'Rawalpindi', 'Islamabad'], 
+        slides: ['greenline_7.webp','greenline_2.webp','greenline_1.webp'], 
+        fares: [{class:"AC Parlor",price:"Rs. 13,500"},{class:"Economy",price:"Rs. 4,500"},{class:"Standard",price:"Rs. 7,500"},{class:"Business",price:"Rs. 10,500"}],
+        stats: { punctuality: '95%', cleanliness: 5, food: 4, behavior: 5 },
+        amenities: ['wifi', 'charging', 'bedding', 'dining', 'ac'],
+        composition: { parlor: '01 Coach', business: '06 Coaches', standard: '06 Coach', economy: '05 Coaches' }
+    },
+    { 
+        id: 'khybermail', 
+        name: 'Khyber Mail Express', 
+        route: 'Karachi ⟷ Peshawar', 
+        cities: ['Karachi', 'Multan', 'Lahore', 'Peshawar'], 
+        slides: ['coming_soon.avif'], 
+        fares: [{class:"AC Sleeper",price:"Rs. 13,000"},{class:"Economy",price:"Rs. 4,000"},{class:"Standard",price:"Rs. 7,000"},{class:"Business",price:"Rs. 10,000"}],
+        stats: { punctuality: '82%', cleanliness: 3, food: 3, behavior: 4 },
+        amenities: ['charging', 'bedding', 'dining', 'ac'],
+        composition: { parlor: 'None', business: '03 Coaches', standard: '02 Coaches', economy: '08 Coaches' }
+    },
+    { 
+        id: 'karakoram', 
+        name: 'Karakoram Express', 
+        route: 'Karachi ⟷ Lahore', 
+        cities: ['Karachi', 'Hyderabad', 'Rohri', 'Lahore'], 
+        slides: ['karakoram_express_train_rake.webp'], 
+        fares: [{class:"AC Business",price:"Rs. 9,500"},{class:"Economy",price:"Rs. 4,000"},{class:"Standard",price:"Rs. 7,000"}],
+        stats: { punctuality: '90%', cleanliness: 4, food: 4, behavior: 5 },
+        amenities: ['wifi', 'charging', 'bedding', 'dining', 'ac'],
+        composition: { parlor: 'None', business: '02 Coaches', standard: '02 Coaches', economy: '13 Coaches' }
+    },
+    { 
+        id: 'shalimar', 
+        name: 'Shalimar Express', 
+        route: 'Karachi ⟷ Lahore', 
+        cities: ['Karachi', 'Drigh Road Jn', 'Landhi Jn', 'Hyderabad', 'Rohri', 'Rahim Yar Khan', 'Khanpur', 'Multan', 'Faisalabad', 'Lahore'], 
+        slides: ['shalimar_1.webp','shalimar_2.webp','shalimar_3.webp', 'shalimar_4.webp', 'shalimar_5.webp', 'shalimar_6.webp', 'shalimar_7.webp', 'shalimar_8.webp', 'shalimar_9.webp', 'shalimar_10.webp', 'shalimar_11.webp', 'shalimar_12.webp', 'shalimar_13.webp', 'shalimar_14.webp', 'shalimar_15.webp'], 
+        fares: [{class:"AC Parlor",price:"Rs. 10,100"},{class:"Economy",price:"Rs. 4,100"},{class:"Standard",price:"Rs. 7,500"},{class:"Business",price:"Rs. 10,600"}],
+        stats: { punctuality: '95%', cleanliness: 5, food: 5, behavior: 5 },
+        amenities: ['wifi', 'charging', 'bedding', 'dining', 'ac'],
+        composition: { parlor: 'None', business: '02 Coaches', standard: '02 Coaches', economy: '13 Coaches' }
+    }
 ];
 
 const galleryData = [
@@ -252,35 +287,124 @@ function startPollsListener() {
     });
 }
 
+// --- 8. COMMUNITY CLOUD (READ MORE & COMMENTS) ---
+
+function togglePost(postId) {
+    expandedPosts[postId] = !expandedPosts[postId];
+    fetchUpdates(); // Re-render to show/hide content and interaction area
+}
+
+async function handleCommentSubmit(e, postId) {
+    e.preventDefault();
+    const input = e.target.querySelector('input');
+    const commentText = input.value.trim();
+    if(!commentText || !user) return;
+
+    try {
+        await db.collection('artifacts').doc(appId)
+                .collection('public').doc('data')
+                .collection('updates').doc(postId)
+                .collection('comments').add({
+                    text: commentText,
+                    userId: user.uid,
+                    userName: "Railfan Observer",
+                    timestamp: Date.now()
+                });
+        input.value = "";
+    } catch (err) { console.error("Reply failed"); }
+}
+
+function renderComments(postId, containerId) {
+    const container = document.getElementById(containerId);
+    if(!container) return;
+
+    db.collection('artifacts').doc(appId)
+      .collection('public').doc('data')
+      .collection('updates').doc(postId)
+      .collection('comments')
+      .onSnapshot(snap => {
+          const comments = snap.docs.map(doc => doc.data()).sort((a,b) => b.timestamp - a.timestamp);
+          container.innerHTML = comments.map(c => `
+              <div class="bg-gray-50 dark:bg-rail-dark p-4 rounded-2xl mb-3 border border-gray-100 dark:border-gray-800">
+                  <div class="flex justify-between items-center mb-1">
+                      <span class="text-[9px] font-black uppercase text-rail-accent tracking-widest">Public Observer</span>
+                      <span class="text-[8px] text-gray-400 font-bold">${formatTimestamp(c.timestamp)}</span>
+                  </div>
+                  <p class="text-xs text-gray-600 dark:text-gray-300 leading-snug">${escapeHTML(c.text)}</p>
+              </div>
+          `).join('') || '<p class="text-[10px] text-gray-400 italic text-center py-4">No replies yet. Be the first to interact!</p>';
+      });
+}
+
 function fetchUpdates() {
     if (!user) return;
-    db.collection('artifacts').doc(appId).collection('public').doc('data').collection('updates').onSnapshot(snap => {
+    const path = db.collection('artifacts').doc(appId).collection('public').doc('data').collection('updates');
+    path.onSnapshot(snap => {
         const data = snap.docs.map(doc => ({ id: doc.id, ...doc.data() })).sort((a,b)=>b.timestamp-a.timestamp);
-        const container = document.getElementById('updates-container'); if (!container) return;
+        const container = document.getElementById('updates-container'); 
+        if (!container) return;
         document.getElementById('updates-status')?.classList.add('hidden');
         
         container.innerHTML = data.map(u => {
             const urls = u.imageUrls || (u.imageUrl ? [u.imageUrl] : []);
+            const isExpanded = expandedPosts[u.id] || false;
+            const threshold = 200;
+            const needsTruncation = u.content.length > threshold;
+            
+            const displayContent = (needsTruncation && !isExpanded) 
+                ? u.content.substring(0, threshold) + "..." 
+                : u.content;
+
             return `
-            <div class="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl text-left mb-10 transition-transform">
+            <div class="bg-white dark:bg-gray-800 p-8 md:p-10 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl text-left mb-10 transition-all">
                 <div class="flex justify-between mb-6 text-[10px] font-black uppercase text-gray-400 tracking-widest">
-                    <span>Official Broadcast</span><span>${formatTimestamp(u.timestamp)}</span>
+                    <span>Neural Cloud Post</span><span>${formatTimestamp(u.timestamp)}</span>
                 </div>
                 ${renderUpdateGrid(urls)}
                 <h3 class="text-2xl font-black uppercase mb-4 italic text-gray-900 dark:text-white">${escapeHTML(u.title)}</h3>
-                <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">${parseHashtags(u.content)}</p>
+                
+                <div class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">
+                    ${parseHashtags(displayContent)}
+                    ${needsTruncation ? `
+                        <button onclick="togglePost('${u.id}')" class="text-rail-accent font-black uppercase text-[10px] ml-2 hover:underline tracking-widest">
+                            ${isExpanded ? "Show Less" : "Read More..."}
+                        </button>
+                    ` : ""}
+                </div>
+
                 <div class="mt-8 flex justify-between items-center border-t border-gray-100 dark:border-gray-700 pt-6">
                     <div class="flex space-x-6 text-sm">
                         <button onclick="handleReaction('${u.id}', 'like')" class="hover:scale-110 transition">👍 ${u.reactions?.like || 0}</button>
                         <button onclick="handleReaction('${u.id}', 'heart')" class="hover:scale-110 transition">❤️ ${u.reactions?.heart || 0}</button>
                     </div>
                 </div>
+
+                <!-- Interaction System (Visible on Expanded or Short Posts) -->
+                ${(isExpanded || !needsTruncation) ? `
+                <div class="mt-10 pt-8 border-t-2 border-dashed border-gray-100 dark:border-gray-700">
+                    <h4 class="text-[10px] font-black uppercase text-gray-400 mb-6 tracking-[0.3em]">Neural Interaction Area</h4>
+                    <div id="comments-list-${u.id}" class="max-h-60 overflow-y-auto custom-scrollbar mb-6 pr-2">
+                        <!-- Replies stream yahan load hoga -->
+                    </div>
+                    <form onsubmit="handleCommentSubmit(event, '${u.id}')" class="flex gap-3">
+                        <input type="text" placeholder="Type your reply..." required class="flex-1 bg-gray-50 dark:bg-rail-dark p-5 rounded-2xl text-xs outline-none border border-transparent focus:border-rail-accent transition-all">
+                        <button type="submit" class="bg-rail-accent text-white px-8 rounded-2xl hover:bg-indigo-700 transition"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+                ` : ""}
             </div>`;
-        }).join('') || '<p class="col-span-full text-center py-20 text-gray-400 font-black italic">No updates available.</p>';
+        }).join('') || '<p class="col-span-full text-center py-20 text-gray-400 font-black italic">No updates synchronized.</p>';
+
+        // Comments load trigger
+        data.forEach(u => {
+            if (expandedPosts[u.id] || u.content.length <= 200) {
+                renderComments(u.id, `comments-list-${u.id}`);
+            }
+        });
     });
 }
 
-// --- 8. UI RENDERING ---
+// --- 9. UI RENDERING ---
 function renderUpdateGrid(urls) {
     if(!urls || urls.length === 0) return '';
     const count = urls.length;
@@ -294,50 +418,144 @@ function renderUpdateGrid(urls) {
     return `<div class="grid ${gridClass} gap-2 mb-6 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-xl">${imagesHtml}</div>`;
 }
 
-function renderTrainCards(filter = 'all') {
-    const grid = document.getElementById('scorecards-grid'); if (!grid) return;
-    let data = trainsData; if (filter !== 'all') data = trainsData.filter(t => t.cities.includes(filter));
+function openExploreModal(trainId) {
+    const t = trainsData.find(x => x.id === trainId);
+    if(!t) return;
 
+    const modal = document.getElementById('explore-modal');
+    const content = document.getElementById('explore-modal-content');
+    
+    // Star Rating Helper
+    const getStars = (count) => '⭐'.repeat(count) + '☆'.repeat(5-count);
+
+    // Amenities Icons mapping
+    const amenityMap = {
+        'wifi': { icon: 'fa-wifi', label: 'Wi-Fi' },
+        'charging': { icon: 'fa-plug', label: 'Charging' },
+        'bedding': { icon: 'fa-bed', label: 'Bedding' },
+        'dining': { icon: 'fa-utensils', label: 'Dining Car' },
+        'ac': { icon: 'fa-snowflake', label: 'AC System' }
+    };
+
+    content.innerHTML = `
+        <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic text-gray-900 dark:text-white mb-3 tracking-tighter">${t.name}</h2>
+            <div class="inline-block bg-rail-accent/10 text-rail-accent px-6 py-2 rounded-full font-black uppercase text-[10px] tracking-[0.3em]">
+                Verified Premium Review
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <!-- Performance Section -->
+            <div class="space-y-8">
+                <h4 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 border-b border-gray-100 dark:border-gray-700 pb-4 italic">Performance Analytics</h4>
+                <div class="space-y-7">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold opacity-80 uppercase italic">Punctuality</span>
+                        <span class="bg-green-100 dark:bg-green-900/30 text-green-600 px-4 py-1.5 rounded-xl font-black text-xs">${t.stats.punctuality}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold opacity-80 uppercase italic">Cleanliness</span>
+                        <span class="stars text-lg">${getStars(t.stats.cleanliness)}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold opacity-80 uppercase italic">Food Quality</span>
+                        <span class="stars text-lg">${getStars(t.stats.food)}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold opacity-80 uppercase italic">Staff Behavior</span>
+                        <span class="stars text-lg">${getStars(t.stats.behavior)}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Amenities Section -->
+            <div class="space-y-8">
+                <h4 class="text-[11px] font-black uppercase tracking-[0.4em] text-gray-400 border-b border-gray-100 dark:border-gray-700 pb-4 italic">Standard Amenities</h4>
+                <div class="grid grid-cols-2 gap-4">
+                    ${t.amenities.map(key => `
+                        <div class="flex items-center gap-4 p-5 bg-gray-50 dark:bg-gray-700/30 rounded-3xl border border-gray-100 dark:border-gray-800 transition hover:border-rail-accent group">
+                            <i class="fas ${amenityMap[key].icon} text-rail-accent text-xl transition group-hover:scale-110"></i>
+                            <span class="text-[10px] font-black uppercase tracking-widest">${amenityMap[key].label}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
+
+        <!-- Composition Section -->
+        <div class="mt-16 bg-rail-accent/5 p-10 rounded-5xl border border-rail-accent/10">
+            <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-rail-accent mb-8 text-center italic">Train Composition (Coaches)</h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                ${Object.entries(t.composition).map(([key, val]) => `
+                    <div class="space-y-1">
+                        <span class="block text-[9px] font-black uppercase text-gray-400 tracking-widest">${key}</span>
+                        <span class="font-black text-sm text-gray-900 dark:text-white uppercase tracking-tighter italic">${val}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+
+        <p class="mt-12 text-center text-[10px] font-black text-gray-400 uppercase tracking-[0.4em] italic opacity-50 animate-pulse">
+            Neural Score Calculated by RAILSPK Team Observations
+        </p>
+    `;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderTrainCards(filter = 'all') {
+    const grid = document.getElementById('scorecards-grid'); 
+    if (!grid) return;
+    
+    let data = trainsData; 
+    if (filter !== 'all') data = trainsData.filter(t => t.cities.includes(filter));
+    
     grid.innerHTML = data.map(t => {
-        const filtered = allReviews.filter(r => r.trainId === t.id).sort((a,b)=>b.timestamp - a.timestamp);
-        const avg = filtered.length ? filtered.reduce((a, b) => a + b.rating, 0) / filtered.length : 0;
         const fullSlidePaths = t.slides.map(s => 'images/' + s);
         const escapedSlides = JSON.stringify(fullSlidePaths).replace(/"/g, '&quot;');
         
-        const feedbackHtml = filtered.slice(0, 3).map(r => `
-            <div class="bg-gray-50 dark:bg-rail-dark p-3 rounded-xl border border-gray-100 dark:border-gray-700 mb-2">
-                <div class="flex justify-between text-[10px] font-black uppercase text-rail-accent"><span>${escapeHTML(r.name)}</span><span class="stars">${'★'.repeat(r.rating)}</span></div>
-                <p class="text-[11px] italic text-gray-600 dark:text-gray-400">"${escapeHTML(r.comment)}"</p>
-            </div>`).join('') || '<p class="text-[10px] text-gray-400 italic">No feedback yet.</p>';
-
         return `
-        <div class="bg-white dark:bg-gray-800 rounded-[2.5rem] border border-gray-100 dark:border-gray-700 shadow-xl overflow-hidden flex flex-col text-left mb-8 group transition-all hover:translate-y-[-5px]">
-            <div class="p-8 flex flex-col md:flex-row gap-8">
-                <div class="flex-1">
-                    <h3 class="text-2xl font-black uppercase text-gray-900 dark:text-white mb-1">${t.name}</h3>
-                    <p class="text-rail-accent font-bold text-[10px] uppercase tracking-widest mb-6">${t.route}</p>
-                    <div class="bg-gray-50 dark:bg-rail-dark p-4 rounded-2xl mb-6 text-[11px] font-bold">
-                        ${t.fares.map(f=>`<div class="flex justify-between border-b border-gray-100 dark:border-gray-700 pb-1 last:border-0"><span>${f.class}</span><span class="text-rail-accent">${f.price}</span></div>`).join('')}
+            <div class="bg-white dark:bg-gray-800 rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col group transition-all duration-500 hover:translate-y-[-8px] hover:shadow-2xl">
+                <div class="p-6 md:p-10 flex flex-col md:flex-row gap-8 items-center">
+                    
+                    <!-- LEFT SIDE: Content (Shrunk to 40% on desktop) -->
+                    <div class="w-full md:w-[40%] space-y-6">
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-black uppercase text-gray-900 dark:text-white mb-1 tracking-tighter italic">${t.name}</h3>
+                            <p class="text-rail-accent font-black text-[10px] uppercase tracking-[0.3em]">${t.route}</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 dark:bg-rail-dark p-6 rounded-[2rem] border border-gray-100 dark:border-gray-700 space-y-3">
+                            ${t.fares.map(f=>`
+                                <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-2 last:border-0 last:pb-0">
+                                    <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">${f.class}</span>
+                                    <span class="text-rail-accent font-black text-xs italic">${f.price}</span>
+                                </div>`).join('')}
+                        </div>
+
+                        <button onclick="openExploreModal('${t.id}')" class="w-full bg-rail-dark dark:bg-rail-accent text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] shadow-lg hover:scale-[1.02] transition-all">
+                            Explore Neural Mode <i class="fas fa-microchip ml-2"></i>
+                        </button>
                     </div>
-                    <div class="flex justify-between items-center font-black">
-                        <span class="text-[10px] text-gray-400 uppercase tracking-widest">Score</span>
-                        <span class="stars text-lg">${'★'.repeat(Math.round(avg)) || '☆☆☆☆☆'}</span>
+
+                    <!-- RIGHT SIDE: Image (Extended to 60% on desktop) -->
+                    <div class="w-full md:w-[60%] aspect-video md:aspect-auto md:h-[380px] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-2xl relative bg-gray-100 dark:bg-gray-700" onclick="openSliderModal(${escapedSlides}, 0)">
+                        <img src="images/${t.slides[0]}" alt="${t.name} External View" loading="lazy" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                        <div class="absolute bottom-6 right-6 bg-black/60 text-white text-[10px] px-6 py-2 rounded-full font-black backdrop-blur-md border border-white/10 uppercase tracking-widest italic">
+                            ${t.slides.length} Viewpoints
+                        </div>
                     </div>
+                    
                 </div>
-                <div class="md:w-48 aspect-square rounded-[2rem] overflow-hidden cursor-pointer shadow-lg relative bg-gray-100 dark:bg-gray-700" onclick="openSliderModal(${escapedSlides}, 0)">
-                    <img src="images/${t.slides[0]}" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                    ${t.slides.length > 1 ? `<div class="absolute bottom-3 right-3 bg-black/60 text-white text-[9px] px-3 py-1 rounded-full font-black">${t.slides.length} Photos</div>` : ''}
-                </div>
-            </div>
-            <div class="px-8 pb-8 border-t border-gray-100 dark:border-gray-700 pt-6">
-                <h4 class="text-[10px] font-black uppercase text-gray-400 mb-4 tracking-widest">Recent Feedback</h4>
-                <div class="max-h-40 overflow-y-auto pr-2 custom-scrollbar">${feedbackHtml}</div>
-            </div>
-        </div>`;
+            </div>`;
     }).join('');
 }
 
-// --- 9. YOUTUBE API ---
+// --- 10. YOUTUBE API ---
 async function fetchVideos(d, tok=null, append=false) {
     const container = document.getElementById('video-cards-container'); 
     if (!container || !YT_KEY) return; 
@@ -357,7 +575,7 @@ async function fetchVideos(d, tok=null, append=false) {
     } catch (e) { console.error("YT API Error"); }
 }
 
-// --- 10. ADMIN ACTIONS ---
+// --- 11. ADMIN ACTIONS ---
 async function postUpdate(e) {
     e.preventDefault(); if (!adminAuthorised || !user) return;
     const btn = document.getElementById('update-btn');
@@ -409,7 +627,7 @@ async function handleReaction(id, type) {
     });
 }
 
-// --- 11. MODAL OPENERS ---
+// --- 12. MODAL OPENERS ---
 function openVideo(id) { 
     const container = document.getElementById('video-embed-container');
     const modal = document.getElementById('video-modal');
@@ -423,7 +641,7 @@ function renderGallery() {
     grid.innerHTML = galleryData.map(img => `<div class="group relative overflow-hidden rounded-[2.5rem] bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-xl" onclick="openSliderModal(['${img.src}'], 0)"><img src="${img.src}" loading="lazy" class="w-full h-80 object-cover transition duration-700 group-hover:scale-110 cursor-zoom-in"><div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8"><h4 class="text-white text-xl font-black italic uppercase">${img.title}</h4></div></div>`).join('');
 }
 
-// --- 12. ADMIN LOGIC ---
+// --- 13. ADMIN LOGIC ---
 function checkAdmin() {
     const p = prompt("Admin Key:");
     if (p === "railspk786") {
@@ -440,7 +658,7 @@ function checkAdmin() {
     }
 }
 
-// --- 13. INITIALIZATION ---
+// --- 14. INITIALIZATION ---
 window.addEventListener('DOMContentLoaded', () => {
     initFirebase(); 
     const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
